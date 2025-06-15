@@ -7,7 +7,7 @@ import { Center, VStack } from '@/components/ui/layouts';
 export default function Home() {
   return (
     <Center className='w-screen'>
-      <VStack className='mt-[140px] w-[800px] flex-col items-center'>
+      <VStack className='mt-[140px] w-[900px] flex-col items-center'>
         <div className='mt-[30px] flex gap-4'>
           <Button.Root variant='neutral' asChild>
             <a

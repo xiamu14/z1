@@ -49,7 +49,7 @@ export const dividerVariants = tv({
   },
 });
 
-function Divider({
+export function Divider({
   className,
   variant,
   ...rest
@@ -64,5 +64,3 @@ function Divider({
   );
 }
 Divider.displayName = DIVIDER_ROOT_NAME;
-
-export { Divider as Root };
