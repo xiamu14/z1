@@ -4,8 +4,8 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
+    remotePatterns: [{ hostname: 'images.unsplash.com' }],
     disableStaticImages: false,
-    domains: ['images.ctfassets.net', 'images.unsplash.com'],
   },
 };
 

@@ -15,8 +15,8 @@ export async function parseMarkdown(markdown: string) {
     .use(rehypeShiki, {
       // or `theme` for a single theme
       themes: {
-        light: 'vitesse-light',
-        dark: 'vitesse-dark',
+        light: 'min-light',
+        dark: 'min-dark',
       },
     })
     .use(rehypeStringify)

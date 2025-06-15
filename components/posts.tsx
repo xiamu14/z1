@@ -27,7 +27,7 @@ const ItemContent: React.FC<{ data: PostType; onClick: () => void }> = ({
         <Box>{data.frontMatter.description ?? ''}</Box>
 
         {data.frontMatter.cover && (
-          <Box className='mt-[20px] overflow-hidden rounded-[14px]'>
+          <Box className='mt-[20px] overflow-hidden rounded-[12px]'>
             <Image
               src={data.frontMatter.cover}
               width={500}
@@ -70,8 +70,8 @@ export function Posts() {
       <Modal.Root open={open} onOpenChange={setOpen}>
         <Modal.Content className='flex max-w-[700px]'>
           <Modal.Header className='hidden'></Modal.Header>
-          <Modal.Body className='flex w-full items-start gap-4'>
-            <div className='flex h-[90vh] w-[700px] flex-col space-y-1 px-[40px] pb-[30px]'>
+          <Modal.Body className='flex w-full'>
+            <div className='flex h-[90vh] w-full flex-col space-y-1 px-[30px] pb-[30px]'>
               <div className='mb-[20px] mt-[20px] text-title-h4 text-text-strong-950'>
                 {currentPost?.frontMatter.title}
               </div>
@@ -88,7 +88,7 @@ export function Posts() {
                   </Box>
                 )}
                 <div
-                  className='post-content text-paragraph-sm text-text-sub-600'
+                  className='post-content w-full text-paragraph-sm text-text-sub-600'
                   dangerouslySetInnerHTML={{
                     __html: currentPost?.content ?? '',
                   }}

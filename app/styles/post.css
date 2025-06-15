@@ -37,4 +37,10 @@
   pre:focus-visible {
     outline: none;
   }
+  pre {
+    background: #f9f9fd !important;
+    padding: 15px;
+    border-radius: 10px;
+    overflow-x: scroll;
+  }
 }
