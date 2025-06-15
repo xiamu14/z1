@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import * as Divider from '@/components/ui/divider';
+import { Divider } from '@/components/ui/divider';
 import { cn } from '@/utils/cn';
 
 const Table = React.forwardRef<
@@ -79,13 +79,13 @@ function TableRowDivider({
   className,
   dividerClassName,
   ...rest
-}: React.ComponentPropsWithoutRef<typeof Divider.Root> & {
+}: React.ComponentPropsWithoutRef<any> & {
   dividerClassName?: string;
 }) {
   return (
     <tr aria-hidden='true' className={className}>
       <td colSpan={999} className='py-1'>
-        <Divider.Root
+        <Divider
           variant='line-spacing'
           className={dividerClassName}
           {...rest}
