@@ -1,13 +1,13 @@
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 
-const DynamicThemeSwitch = dynamic(() => import('./theme-switch'), {
-  ssr: false,
-});
+// const DynamicThemeSwitch = dynamic(() => import('./theme-switch'), {
+//   ssr: false,
+// });
 
 export default function Header() {
   return (
-    <div className='border-b border-stroke-soft-200'>
+    <div className='fixed left-[50vw] top-[40px] w-[800px] translate-x-[-400px] rounded-full border-b border-stroke-soft-200 bg-white px-[10px] py-[6px]'>
       <header className='mx-auto flex h-14 max-w-5xl items-center justify-between px-5'>
         <Link
           href='/'
@@ -17,12 +17,11 @@ export default function Header() {
           <img
             src='/images/logo.svg'
             alt=''
-            className='size-9 object-contain'
+            className='size-9 h-[30px] w-[30px] object-contain'
           />
-          AlignUI
         </Link>
 
-        <DynamicThemeSwitch />
+        {/* <DynamicThemeSwitch /> */}
       </header>
     </div>
   );
