@@ -1,0 +1,40 @@
+.post-content {
+  display: flex;
+  gap: 10px;
+  font-size: 18px;
+  flex-direction: column;
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-weight: bold;
+  }
+  h2 {
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+  }
+  h3 {
+    font-size: 1.25rem;
+    line-height: 2.25rem;
+  }
+  h4 {
+    font-size: 1rem;
+    line-height: 2rem;
+  }
+  h5 {
+    font-size: 1rem;
+    line-height: 1.75rem;
+  }
+  p {
+    line-height: 1.5;
+  }
+  p > code {
+    background: #ffa468;
+    color: white;
+    padding: 0 4px;
+    border-radius: 4px;
+  }
+  pre:focus-visible {
+    outline: none;
+  }
+}

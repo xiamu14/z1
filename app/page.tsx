@@ -10,18 +10,15 @@ export default function Home() {
       <VStack className='mt-[140px] w-[900px] flex-col items-center'>
         <div className='mt-[30px] flex gap-4'>
           <Button.Root variant='neutral' asChild>
-            <a
-              href='https://github.com/alignui/alignui-nextjs-typescript-starter'
-              target='_blank'
-            >
+            <a href='https://github.com/xiamu14/z1' target='_blank'>
               <Button.Icon as={RiGithubFill} />
               Give a star
             </a>
           </Button.Root>
 
           <Button.Root variant='neutral' mode='stroke' asChild>
-            <Link href='https://alignui.com/docs' target='_blank'>
-              Read our docs
+            <Link href='' target='_blank'>
+              Buy me Coffee
             </Link>
           </Button.Root>
         </div>

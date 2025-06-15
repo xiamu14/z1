@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "ES2018",
     "lib": [
       "dom",
       "dom.iterable",
@@ -27,6 +27,9 @@
       "@/*": [
         "./*"
       ],
+      "@/content": [
+        "./.content/index.ts"
+      ]
     }
   },
   "include": [
@@ -34,6 +37,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
+    "./.content/*.ts"
   ],
   "exclude": [
     "node_modules"

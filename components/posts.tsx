@@ -9,7 +9,8 @@ import * as Button from './ui/button';
 
 import { RiCheckboxCircleFill } from '@remixicon/react';
 import Image from 'next/image';
-const ItemContent: React.FC<{ data: number; onClick: () => void }> = ({
+import { allPosts, PostType } from '@/.content';
+const ItemContent: React.FC<{ data: PostType; onClick: () => void }> = ({
   data,
   onClick,
 }) => {
@@ -18,69 +19,84 @@ const ItemContent: React.FC<{ data: number; onClick: () => void }> = ({
       <VStack className='cursor-pointer rounded-[10px] border bg-white p-[24px]'>
         <HStack className='h-[18px] items-center gap-[10px]'>
           <div className='h-full w-[4px] rounded-xl bg-primary-base'></div>
-          <h3 className='font-bold text-static-black'>CSS : flex 规则</h3>
+          <h3 className='font-bold text-static-black'>
+            {data.frontMatter.title}
+          </h3>
         </HStack>
         <Divider className='my-[20px]' />
-        <Box>
-          设置元素的宽度等于父容器剩余内容的宽度时，要给元素添加
-          `overflow:hidden`，避免元素被子元素撑开。
-        </Box>
+        <Box>{data.frontMatter.description ?? ''}</Box>
 
-        <Box className='mt-[20px] overflow-hidden rounded-[14px]'>
-          <Image
-            src={
-              'https://images.unsplash.com/photo-1607799279861-4dd421887fb3?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-            }
-            width={500}
-            height={500}
-            alt='picture'
-          />
-        </Box>
+        {data.frontMatter.cover && (
+          <Box className='mt-[20px] overflow-hidden rounded-[14px]'>
+            <Image
+              src={data.frontMatter.cover}
+              width={500}
+              height={300}
+              objectFit='contain'
+              alt='picture'
+            />
+          </Box>
+        )}
       </VStack>
     </div>
   );
 };
 
 export function Posts() {
-  const data = useMemo(() => {
-    return Array.from({ length: 200 }, (_, index) => index);
-  }, []);
   const [open, setOpen] = useState(false);
+  const [currentPost, setCurrentPost] = useState<PostType>();
 
   return (
     <div className='scroll-smooth'>
       <VirtuosoMasonry
         columnCount={3}
-        data={data}
+        data={allPosts}
         style={{ height: 500, scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        initialItemCount={50}
-        ItemContent={(data: any) => (
-          <ItemContent
-            data={data}
-            onClick={() => {
-              setOpen(true);
-            }}
-          />
-        )}
+        initialItemCount={allPosts.length}
+        ItemContent={({ data: post }: { data: PostType }) => {
+          return (
+            post && (
+              <ItemContent
+                data={post}
+                onClick={() => {
+                  setOpen(true);
+                  setCurrentPost(post);
+                }}
+              />
+            )
+          );
+        }}
       />
       <Modal.Root open={open} onOpenChange={setOpen}>
-        <Modal.Content className='max-w-[600px]'>
+        <Modal.Content className='flex max-w-[700px]'>
           <Modal.Header className='hidden'></Modal.Header>
-          <Modal.Body className='flex items-start gap-4'>
-            <div className='flex size-10 shrink-0 items-center justify-center rounded-10 bg-success-lighter'>
-              <RiCheckboxCircleFill className='size-6 text-success-base' />
-            </div>
-            <div className='space-y-1'>
-              <div className='text-label-md text-text-strong-950'>
-                Payment Received
+          <Modal.Body className='flex w-full items-start gap-4'>
+            <div className='flex h-[90vh] w-[700px] flex-col space-y-1 px-[40px] pb-[30px]'>
+              <div className='mb-[20px] mt-[20px] text-title-h4 text-text-strong-950'>
+                {currentPost?.frontMatter.title}
               </div>
-              <div className='text-paragraph-sm text-text-sub-600'>
-                Your payment has been successfully received. You have unlocked
-                premium services now.
+              <div className='scrollbar-hide flex flex-1 flex-col overflow-y-scroll'>
+                {currentPost?.frontMatter.cover && (
+                  <Box className='mb-[20px] flex-shrink-0 overflow-hidden rounded-[14px]'>
+                    <Image
+                      src={currentPost.frontMatter.cover}
+                      width={800}
+                      height={200}
+                      objectFit='contain'
+                      alt='picture'
+                    />
+                  </Box>
+                )}
+                <div
+                  className='post-content text-paragraph-sm text-text-sub-600'
+                  dangerouslySetInnerHTML={{
+                    __html: currentPost?.content ?? '',
+                  }}
+                ></div>
               </div>
             </div>
           </Modal.Body>
-          <Modal.Footer>
+          <Modal.Footer className='hidden'>
             <Modal.Close asChild>
               <Button.Root
                 variant='neutral'
