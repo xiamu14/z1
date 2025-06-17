@@ -1,15 +1,15 @@
 'use client';
-
 import { VirtuosoMasonry } from '@virtuoso.dev/masonry';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Box, HStack, VStack } from './ui/layouts';
 import { Divider } from './ui/divider';
 import * as Modal from './ui/modal';
 import * as Button from './ui/button';
 
-import { RiCheckboxCircleFill } from '@remixicon/react';
 import Image from 'next/image';
 import { allPosts, PostType } from '@/.content';
+import MusicCard from './music-card';
+type CardType = PostType & { type?: 'music' | 'post' | 'video' };
 const ItemContent: React.FC<{ data: PostType; onClick: () => void }> = ({
   data,
   onClick,
@@ -32,7 +32,6 @@ const ItemContent: React.FC<{ data: PostType; onClick: () => void }> = ({
               src={data.frontMatter.cover}
               width={500}
               height={300}
-              objectFit='contain'
               alt='picture'
             />
           </Box>
@@ -45,22 +44,39 @@ const ItemContent: React.FC<{ data: PostType; onClick: () => void }> = ({
 export function Posts() {
   const [open, setOpen] = useState(false);
   const [currentPost, setCurrentPost] = useState<PostType>();
+  const allCards = useMemo(() => {
+    const postsWithMusic: CardType[] = [...allPosts].map((item: CardType) => {
+      item['type'] = 'post' as const;
+      return item as CardType;
+    });
+    postsWithMusic.splice(2, 0, { type: 'music' } as CardType);
+    return postsWithMusic;
+  }, []);
 
   return (
     <div className='scroll-smooth'>
       <VirtuosoMasonry
         columnCount={3}
-        data={allPosts}
+        data={allCards}
         style={{ height: 500, scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        initialItemCount={allPosts.length}
-        ItemContent={({ data: post }: { data: PostType }) => {
+        initialItemCount={allCards.length}
+        ItemContent={({
+          data: card,
+          index,
+        }: {
+          data: CardType;
+          index: number;
+        }) => {
+          if (card.type === 'music') {
+            return <MusicCard />;
+          }
           return (
-            post && (
+            card && (
               <ItemContent
-                data={post}
+                data={card}
                 onClick={() => {
                   setOpen(true);
-                  setCurrentPost(post);
+                  setCurrentPost(card);
                 }}
               />
             )
@@ -82,7 +98,6 @@ export function Posts() {
                       src={currentPost.frontMatter.cover}
                       width={800}
                       height={200}
-                      objectFit='contain'
                       alt='picture'
                     />
                   </Box>

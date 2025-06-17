@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { tv, type VariantProps } from '@/utils/tv';
+import { cn } from '../../utils/cn';
 
 export const progressBarVariants = tv({
   slots: {
@@ -33,17 +34,21 @@ type ProgressBarRootProps = React.HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof progressBarVariants> & {
     value?: number;
     max?: number;
+    extraClassName?: string;
   };
 
 const ProgressBarRoot = React.forwardRef<HTMLDivElement, ProgressBarRootProps>(
-  ({ className, color, value = 0, max = 100, ...rest }, forwardedRef) => {
+  (
+    { className, extraClassName, color, value = 0, max = 100, ...rest },
+    forwardedRef,
+  ) => {
     const { root, progress } = progressBarVariants({ color });
     const safeValue = Math.min(max, Math.max(value, 0));
 
     return (
       <div ref={forwardedRef} className={root({ class: className })} {...rest}>
         <div
-          className={progress()}
+          className={cn(progress(), extraClassName)}
           style={{
             width: `${(safeValue / max) * 100}%`,
           }}

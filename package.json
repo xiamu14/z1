@@ -30,6 +30,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.0.4",
     "date-fns": "^3",
+    "howler": "^2.2.4",
     "js-yaml": "^4.1.0",
     "merge-refs": "^1.3.0",
     "next": "14.2.16",
@@ -45,6 +46,7 @@
   },
   "devDependencies": {
     "@shikijs/rehype": "^3.6.0",
+    "@types/howler": "^2.2.12",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^20",
     "@types/react": "^18",
