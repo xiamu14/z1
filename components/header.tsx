@@ -15,7 +15,7 @@ export default function Header() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src='/images/logo.svg'
+            src='/images/new-logo.svg'
             alt=''
             className='size-9 h-[30px] w-[30px] object-contain'
           />

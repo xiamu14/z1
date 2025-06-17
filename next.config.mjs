@@ -4,7 +4,11 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    remotePatterns: [{ hostname: 'images.unsplash.com' }],
+    remotePatterns: [
+      { hostname: 'images.unsplash.com' },
+      { hostname: 'picx.zhimg.com' },
+      { hostname: 'pic.dmjnb.com' },
+    ],
     disableStaticImages: false,
   },
 };

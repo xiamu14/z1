@@ -3,11 +3,17 @@ import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { Howl } from 'howler';
 import { Track } from './types';
 
-export function useMusicPlayer({ tracks }: { tracks: Track[] }) {
+export function useMusicPlayer({
+  tracks,
+  config,
+}: {
+  tracks: Track[];
+  config?: { loop: boolean };
+}) {
   const [trackIndex, setTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [loop, setLoop] = useState(false);
+  const [loop, setLoop] = useState(config?.loop);
 
   const soundRef = useRef<Howl | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -17,7 +23,7 @@ export function useMusicPlayer({ tracks }: { tracks: Track[] }) {
 
   const progressPercent = useMemo(() => {
     const duration = soundRef.current?.duration?.() || 0;
-    return duration > 0 ? (progress / duration) * 100 : 0;
+    return duration > 0 ? Math.round((progress / duration) * 100) : 0;
   }, [progress]);
 
   const clearProgressInterval = () => {
@@ -37,7 +43,7 @@ export function useMusicPlayer({ tracks }: { tracks: Track[] }) {
   };
 
   // 播放当前或指定索引曲目，支持断点续播
-  const play = (index = trackIndex) => {
+  const play = (index = 0) => {
     const isSameTrack = index === trackIndex;
     const existingSound = soundRef.current;
 
@@ -59,7 +65,7 @@ export function useMusicPlayer({ tracks }: { tracks: Track[] }) {
       src: [tracks[index].src],
       html5: true,
       loop: loop,
-      onend: handleNext,
+      onend: () => handleNext(),
     });
 
     soundRef.current = sound;
@@ -103,6 +109,7 @@ export function useMusicPlayer({ tracks }: { tracks: Track[] }) {
 
   const handleNext = () => {
     const nextIndex = (trackIndex + 1) % tracks.length;
+    // console.log('[next]', trackIndex, nextIndex);
     setTrackIndex(nextIndex);
     seekRef.current = 0;
     play(nextIndex);
