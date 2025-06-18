@@ -65,7 +65,7 @@ export function useMusicPlayer({
       src: [tracks[index].src],
       html5: true,
       loop: loop,
-      onend: () => handleNext(),
+      onend: () => handleAutoNext((index + 1) % tracks.length),
     });
 
     soundRef.current = sound;
@@ -105,6 +105,12 @@ export function useMusicPlayer({
       setProgress(time);
       seekRef.current = time;
     }
+  };
+
+  const handleAutoNext = (nextIndex: number) => {
+    setTrackIndex(nextIndex);
+    seekRef.current = 0;
+    play(nextIndex);
   };
 
   const handleNext = () => {
