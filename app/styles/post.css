@@ -43,4 +43,22 @@
     border-radius: 10px;
     overflow-x: scroll;
   }
+  a {
+    border-bottom: 1px solid #d71a1b;
+    transition: all 0.2s;
+  }
+  a:hover {
+    border-bottom-width: 2px;
+  }
+  ul {
+    margin-top: 10px;
+    margin-down: 10px;
+    list-style-type: disc;
+    padding-left: 36px;
+    padding-right: 36px;
+  }
+  ul li {
+    font-size: 16px;
+    margin: 10px 0;
+  }
 }

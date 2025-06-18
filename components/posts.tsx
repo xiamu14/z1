@@ -49,7 +49,7 @@ export function Posts() {
       item['type'] = 'post' as const;
       return item as CardType;
     });
-    postsWithMusic.splice(2, 0, { type: 'music' } as CardType);
+    // postsWithMusic.splice(2, 0, { type: 'music' } as CardType);
     return postsWithMusic;
   }, []);
 

@@ -8,6 +8,7 @@ const nextConfig = {
       { hostname: 'images.unsplash.com' },
       { hostname: 'picx.zhimg.com' },
       { hostname: 'pic.dmjnb.com' },
+      { hostname: 'pica.zhimg.com' },
     ],
     disableStaticImages: false,
   },

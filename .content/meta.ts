@@ -15,6 +15,18 @@ export type PostType = {
 
  export const allPosts : PostType[] = [
   {
+    "filePath": "/Users/ben/Documents/workspace/project/z1-blog/posts/more-motion.md",
+    "content": "<h2>基、形、核三大层面</h2>\n<p>在动画设计中，如何让画面更有视觉冲击力，是很考验功底的一件事。我将从“基、形、核”三个层面去聊塑造视觉冲击力的技巧。</p>\n<h3>基</h3>\n<p>在做动画之前，我们一定会有一个基础的构思和设计，它的画面大概是什么样式，动画大概是怎么运动。这个基础的画面和动画构思，决定了你接下来能呈现出多大的能量。是大到宇宙爆炸，还是小到一个火花。</p>\n<h3>形</h3>\n<h3>核</h3>\n<h2>引用</h2>\n<ul>\n<li><a href=\"https://www.bilibili.com/video/BV1av41157qi/?spm_id_from=333.337.search-card.all.click&#x26;vd_source=68fd98cf373bcd193d855f8ffcd2bfba\">如何赋予动画“视觉冲击力”</a></li>\n<li><a href=\"https://www.bilibili.com/video/BV1x54y1e7J9?spm_id_from=333.788.player.player_end_recommend&#x26;vd_source=68fd98cf373bcd193d855f8ffcd2bfba\">动画十二原则</a></li>\n</ul>",
+    "fileName": "more-motion",
+    "subject": [],
+    "md5": "f0bef20bb43d0ce5f1c1d126b18660e4",
+    "frontMatter": {
+      "title": "如何赋予动画“视觉冲击力”",
+      "description": "掌握基、形、核三大层面，让你的动画更有“视觉冲击力”",
+      "cover": "https://pica.zhimg.com/70/v2-2fa9b2dac5b217a1a22a5cb3b47c6a4f_1440w.avis?source=172ae18b&biz_tag=Post"
+    }
+  },
+  {
     "filePath": "/Users/ben/Documents/workspace/project/z1-blog/posts/flex-responsive.md",
     "content": "<h2>Flex 的自适应</h2>\n<p><code>flex:1</code> 可以实现继承父元素剩余高度。</p>\n<h3>flex 防溢出</h3>\n<p>当设置元素的宽度等于父容器剩余内容的宽度时，要给元素添加 <code>overflow:hidden</code>，避免元素被子元素撑开。</p>\n<h3>flex:1 剩余空间多重继承</h3>\n<p>设置元素的高度等于父容器剩余内容的高度时，同时父容器也是通过 <code>flex-grow:1</code> 获得其父容器高度时，则该父容器必须添加 <code>height:0</code> (值不影响)</p>",
     "fileName": "flex-responsive",
