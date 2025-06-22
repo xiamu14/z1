@@ -15,14 +15,14 @@ export type PostType = {
 
  export const allPosts : PostType[] = [
   {
-    "filePath": "/Users/ben/Documents/workspace/project/z1-blog/posts/more-motion.md",
-    "content": "<h2>基、形、核三大层面</h2>\n<p>在动画设计中，如何让画面更有视觉冲击力，是很考验功底的一件事。我将从“基、形、核”三个层面去聊塑造视觉冲击力的技巧。</p>\n<h3>基</h3>\n<p>在做动画之前，我们一定会有一个基础的构思和设计，它的画面大概是什么样式，动画大概是怎么运动。这个基础的画面和动画构思，决定了你接下来能呈现出多大的能量。是大到宇宙爆炸，还是小到一个火花。</p>\n<h3>形</h3>\n<h3>核</h3>\n<h2>引用</h2>\n<ul>\n<li><a href=\"https://www.bilibili.com/video/BV1av41157qi/?spm_id_from=333.337.search-card.all.click&#x26;vd_source=68fd98cf373bcd193d855f8ffcd2bfba\">如何赋予动画“视觉冲击力”</a></li>\n<li><a href=\"https://www.bilibili.com/video/BV1x54y1e7J9?spm_id_from=333.788.player.player_end_recommend&#x26;vd_source=68fd98cf373bcd193d855f8ffcd2bfba\">动画十二原则</a></li>\n</ul>",
-    "fileName": "more-motion",
+    "filePath": "/Users/ben/Documents/workspace/project/z1-blog/posts/rn-practice.md",
+    "content": "<h2>RN 开发常见需求</h2>\n<p>RN 应用开发常见需求整理如下：</p>\n<ul>\n<li>自适应屏幕尺寸，根据屏幕尺寸自动缩放 UI 元素大小。解决方案：使用 nativeWind 里 <code>100vw</code> 等于 <code>screen.width</code> 的特性，使用 <code>pxToVw plugin</code>。</li>\n<li>i18n 国际化需求。解决方案：使用 <code>LingUI</code> 库，可以更方便在代码里实现多语言文本。</li>\n<li>网络请求与路由。解决方案：使用 <code>expo-router</code> 定义路由。使用 openAPI 自动生成 <code>swr hook</code> 代码。</li>\n<li>动画与 UX。解决方案：<code>react-native-reanimated</code>，正在积累更多实践。</li>\n<li>打包与构建。解决方案：<code>expo run:android --device</code> , <code>expo run:ios --device</code></li>\n<li>高性能列表与 Tabs 切换列表。未解决。</li>\n<li>虚拟键盘遮挡输入区问题。未解决。</li>\n<li>图片请求/显示，、缓存。解决方案：<code>expo-image</code> ，正在积累更多实践。</li>\n<li>webview ，显示尺寸。解决方案：``。</li>\n<li>Modal 与 Toast。未解决。</li>\n<li>测试用例。未解决。</li>\n<li>Android 应用隐私政策弹窗。解决方案：Android 原生端。</li>\n</ul>",
+    "fileName": "rn-practice",
     "subject": [],
-    "md5": "f0bef20bb43d0ce5f1c1d126b18660e4",
+    "md5": "a31677fb7e5ca861050a7c4f046bfa3e",
     "frontMatter": {
-      "title": "如何赋予动画“视觉冲击力”",
-      "description": "掌握基、形、核三大层面，让你的动画更有“视觉冲击力”",
+      "title": "React Native 应用开发解决方案",
+      "description": "掌握 RN 开发各种需求解决方案",
       "cover": "https://pica.zhimg.com/70/v2-2fa9b2dac5b217a1a22a5cb3b47c6a4f_1440w.avis?source=172ae18b&biz_tag=Post"
     }
   },

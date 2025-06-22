@@ -28,7 +28,11 @@
   p {
     line-height: 1.5;
   }
-  p > code {
+  li {
+    line-height: 1.4;
+  }
+  p > code,
+  li > code {
     background: #ffa468;
     color: white;
     padding: 0 4px;
@@ -51,7 +55,7 @@
     border-bottom-width: 2px;
   }
   ul {
-    margin-top: 10px;
+    /* margin-top: 10px; */
     margin-down: 10px;
     list-style-type: disc;
     padding-left: 36px;
