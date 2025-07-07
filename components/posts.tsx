@@ -84,7 +84,7 @@ export function Posts() {
         }}
       />
       <Modal.Root open={open} onOpenChange={setOpen}>
-        <Modal.Content className='flex max-w-[700px]'>
+        <Modal.Content className='flex max-w-[1000px]'>
           <Modal.Header className='hidden'></Modal.Header>
           <Modal.Body className='flex w-full'>
             <div className='flex h-[90vh] w-full flex-col space-y-1 px-[30px] pb-[30px]'>
@@ -96,7 +96,7 @@ export function Posts() {
                   <Box className='mb-[20px] flex-shrink-0 overflow-hidden rounded-[14px]'>
                     <Image
                       src={currentPost.frontMatter.cover}
-                      width={800}
+                      width={900}
                       height={200}
                       alt='picture'
                     />
