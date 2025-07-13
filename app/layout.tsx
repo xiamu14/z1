@@ -22,7 +22,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'Z1 | Experience of Life',
+  title: 'Zen1 | Experience of Life',
   description: '...',
   icons: {
     icon: '/images/logo.svg',
