@@ -9,6 +9,7 @@ const nextConfig = {
       { hostname: 'picx.zhimg.com' },
       { hostname: 'pic.dmjnb.com' },
       { hostname: 'pica.zhimg.com' },
+      { hostname: 'pub-f588820721c2423d8874ab668e6f5a74.r2.dev' },
     ],
     disableStaticImages: false,
   },

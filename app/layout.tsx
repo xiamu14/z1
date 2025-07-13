@@ -8,6 +8,7 @@ import { cn } from '@/utils/cn';
 import { Provider as TooltipProvider } from '@/components/ui/tooltip';
 import { NotificationProvider } from '@/components/ui/notification-provider';
 import Header from '@/components/header';
+import Footer from '@/components/footer';
 
 const inter = FontSans({
   subsets: ['latin'],
@@ -21,8 +22,11 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'Z1 | Think And Code',
+  title: 'Z1 | Experience of Life',
   description: '...',
+  icons: {
+    icon: '/images/logo.svg',
+  },
 };
 
 export default function RootLayout({
@@ -36,12 +40,13 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn(inter.variable, geistMono.variable, 'antialiased')}
     >
-      <body className='bg-bg-soft-200 text-text-strong-950'>
+      <body className='bg-white p-[24px] sm:p-[12px]'>
         <ThemeProvider attribute='class'>
           <TooltipProvider>
             <div className='flex min-h-screen flex-col'>
               <Header />
               <main className='flex flex-1 flex-col'>{children}</main>
+              <Footer />
             </div>
           </TooltipProvider>
         </ThemeProvider>

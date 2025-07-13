@@ -3,11 +3,13 @@
   gap: 10px;
   font-size: 18px;
   flex-direction: column;
+  color: #333;
   h2,
   h3,
   h4,
   h5 {
     font-weight: bold;
+    color: #333;
   }
   h2 {
     font-size: 1.5rem;
@@ -26,26 +28,40 @@
     line-height: 1.75rem;
   }
   p {
-    line-height: 1.5;
+    line-height: 1.6;
   }
   li {
-    line-height: 1.4;
+    line-height: 1.6;
   }
   p > code,
   li > code {
-    background: #ffa468;
-    color: white;
-    padding: 0 4px;
-    border-radius: 4px;
+    padding: 0.02em 0.25em;
+    background: #f7f7f7;
+    border: 1px solid #ededed;
+    border-radius: 0.375rem;
+    display: inline-block;
+    line-height: 1.2;
+    color: #ff7737;
+    margin: 0;
+    cursor: point;
   }
   pre:focus-visible {
     outline: none;
+    cursor: pointer;
+  }
+  pre code {
+    overflow-wrap: normal;
+    word-wrap: normal;
+    white-space: pre-wrap;
   }
   pre {
-    background: #f9f9fd !important;
+    background: #f9f9f9 !important;
     padding: 15px;
     border-radius: 10px;
     overflow-x: scroll;
+    line-height: 1.5;
+    overflow-x: auto;
+    cursor: pointer;
   }
   a {
     border-bottom: 1px solid #d71a1b;

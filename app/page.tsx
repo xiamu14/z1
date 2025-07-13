@@ -1,29 +1,12 @@
-import Link from 'next/link';
-import * as Button from '@/components/ui/button';
-import { RiGithubFill } from '@remixicon/react';
 import { Posts } from '@/components/posts';
 import { Center, VStack } from '@/components/ui/layouts';
 
 export default function Home() {
   return (
     <Center className='w-screen'>
-      <VStack className='mt-[140px] w-[900px] flex-col items-center'>
-        <div className='mt-[30px] flex gap-4'>
-          <Button.Root variant='neutral' asChild>
-            <a href='https://github.com/xiamu14/z1' target='_blank'>
-              <Button.Icon as={RiGithubFill} />
-              Give a star
-            </a>
-          </Button.Root>
-
-          <Button.Root variant='neutral' mode='stroke' asChild>
-            <Link href='' target='_blank'>
-              Buy me Coffee
-            </Link>
-          </Button.Root>
-        </div>
-
-        <div className='mt-[30px] w-full'>
+      <VStack className='my-[80px] w-[80%] min-w-[800px] max-w-[960px] flex-col items-center bg-white sm:my-[60px]'>
+        <div className='w-full'>
+          <h4 className='mb-[20px] text-title-h4'>All Articles</h4>
           <Posts />
         </div>
       </VStack>
