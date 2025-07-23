@@ -1,10 +1,8 @@
 'use client';
 import { VirtuosoMasonry } from '@virtuoso.dev/masonry';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { Box, HStack, VStack } from './ui/layouts';
 import { Divider } from './ui/divider';
-import * as Modal from './ui/modal';
-import * as Button from './ui/button';
 
 import Image from 'next/image';
 import { allPosts, PostType } from '@/.content';

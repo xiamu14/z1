@@ -10,7 +10,7 @@ export default function Post() {
   if (!currentPost) return null;
   return (
     <Center className='w-full'>
-      <VStack className='relative top-[-110px] w-[640px] items-center'>
+      <VStack className='relative top-[-140px] w-[680px] items-center'>
         <Box className='overflow-hidden rounded-[15px]'>
           {currentPost?.frontMatter.cover && (
             <Image
@@ -18,12 +18,14 @@ export default function Post() {
               width={660}
               height={280}
               alt='post cover'
-              className='h-[280px] w-[640px] object-cover'
+              className='h-[320px] w-[680px] object-cover'
             />
           )}
         </Box>
-        <VStack className='mt-[20px] px-[12px] py-[20px]'>
-          <h3 className='text-title-h4'>{currentPost?.frontMatter.title}</h3>
+        <VStack className='mt-[10px] px-[12px] py-[20px]'>
+          <h3 className='text-[1.75rem] font-bold'>
+            {currentPost?.frontMatter.title}
+          </h3>
         </VStack>
         <div
           className='post-content w-full px-[10px] text-paragraph-sm text-text-sub-600'
