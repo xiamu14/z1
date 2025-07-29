@@ -10,6 +10,7 @@ const nextConfig = {
       { hostname: 'pic.dmjnb.com' },
       { hostname: 'pica.zhimg.com' },
       { hostname: 'pub-f588820721c2423d8874ab668e6f5a74.r2.dev' },
+      { hostname: 'liblibai-online.liblib.cloud' },
     ],
     disableStaticImages: false,
   },
