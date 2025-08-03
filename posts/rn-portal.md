@@ -1,6 +1,6 @@
 ---
 title: RN 的 Portal 组件
-description:
+description: React Native 中实现 Portal 功能
 cover: https://images.pexels.com/photos/32862970/pexels-photo-32862970.jpeg
 ---
 
