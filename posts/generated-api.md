@@ -1,7 +1,7 @@
 ---
 title: 构建类型安全的 API 函数
 description: 通过 swagger api document 生成 API 函数
-cover: https://images.unsplash.com/photo-1674027444485-cec3da58eef4?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+cover: https://images.pexels.com/photos/11035364/pexels-photo-11035364.jpeg
 ---
 
 ## 构建类型安全的 API 函数

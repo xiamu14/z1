@@ -1,7 +1,7 @@
 ---
 title: 在 RN 中使用 pxToVw 函数
 description: 通过 nativewind 对 vw 的支持，提供自适应页面转换
-cover: https://liblibai-online.liblib.cloud/community-img/241119877-90c432f5d7c9fa97cb1dfda51d4c88d241cd1bce4eb07666173ef80546fb49a7.png?x-oss-process=image/resize,w_764,m_lfit/format,webp
+cover: https://images.pexels.com/photos/2649403/pexels-photo-2649403.jpeg
 ---
 
 ## 在 RN 中使用 pxToVw 函数

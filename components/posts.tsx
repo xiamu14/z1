@@ -15,7 +15,7 @@ const ItemContent: React.FC<{ data: PostType; onClick?: () => void }> = ({
 }) => {
   return (
     <div className='p-[6px]'>
-      <VStack className='cursor-pointer rounded-[10px] border bg-white p-[16px]'>
+      <VStack className='cursor-pointer rounded-[10px] border bg-white p-[16px] hover:shadow-[rgba(149,157,165,0.2)_0px_8px_24px]'>
         <HStack className='h-[18px] items-center gap-[10px]'>
           <div className='h-full w-[4px] rounded-xl bg-primary-base'></div>
           <h3 className='truncate font-bold text-static-black'>
@@ -55,7 +55,11 @@ export function Posts() {
       <VirtuosoMasonry
         columnCount={3}
         data={allCards}
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        style={{
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          overflow: 'visible',
+        }}
         initialItemCount={allCards.length}
         ItemContent={({
           data: card,
