@@ -79,7 +79,9 @@ async function main() {
       },
     );
   }
+
   const metaFilePath = path.join(process.cwd(), '.content', 'meta.ts');
+
   const metaDir = path.dirname(metaFilePath);
   if (!fs.existsSync(metaDir)) {
     fs.mkdirSync(metaDir, { recursive: true });
