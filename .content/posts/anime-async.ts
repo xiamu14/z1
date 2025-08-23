@@ -5,7 +5,8 @@ export default {
   "subject": [
     "snippets"
   ],
-  "md5": "ZHSwCc",
+  "md5": "251af4e6f9823bb3b3f08a5713080a4f",
+  "id": "ZHSwCc",
   "frontMatter": {
     "title": "优化异步等待动画的辅助函数",
     "description": "为异步等待动画增加最小显示时间，避免动画闪烁出现消失",

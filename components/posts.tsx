@@ -69,7 +69,7 @@ export function Posts() {
         }) => {
           return (
             card && (
-              <Link key={card.md5} href={`/post/${card.md5}`}>
+              <Link key={card.id} href={`/post/${card.id}`}>
                 <ItemContent data={card} />
               </Link>
             )

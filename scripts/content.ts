@@ -3,6 +3,8 @@ import path from 'path';
 import fs from 'fs';
 import { parseMarkdown } from './parseMarkdown';
 import yaml from 'js-yaml';
+import crypto from 'crypto';
+import { consola } from 'consola';
 import { md5Nanoid } from './utils';
 
 type FrontMatter = {
@@ -10,16 +12,7 @@ type FrontMatter = {
   description?: string;
 };
 
-type FileMeta = {
-  filePath: string;
-  content: string;
-  fileName: string;
-  subject: string[];
-  md5: string;
-  frontMatter: FrontMatter;
-};
-
-export async function getFile() {
+async function getFile({ history }: { history: string[] }) {
   const files = await glob('posts/**/*.md');
   console.log('files', files);
   const fileMetaList = [];
@@ -33,13 +26,19 @@ export async function getFile() {
     let frontMatter: FrontMatter | undefined = undefined;
     if (frontMeta) {
       frontMatter = yaml.load(frontMeta[1]) as FrontMatter;
-      console.log('[matter]', frontMatter);
+      // console.log('[matter]', frontMatter);
     }
 
     if (!frontMatter || !frontMatter?.title) {
-      console.error(
+      consola.error(
         `Error: Missing title in front matter for file: ${filePath}`,
       );
+      continue;
+    }
+
+    const shortMd5 = md5Nanoid(frontMatter.title, 6);
+    const md5 = crypto.createHash('md5').update(content).digest('hex');
+    if (history.includes(md5)) {
       continue;
     }
 
@@ -55,7 +54,8 @@ export async function getFile() {
       content: parsedContent,
       fileName,
       subject,
-      md5: md5Nanoid(frontMatter.title, 6),
+      md5: md5,
+      id: shortMd5,
       frontMatter,
       updateAt,
     });
@@ -63,12 +63,45 @@ export async function getFile() {
   return fileMetaList;
 }
 
+async function getHistory(): Promise<string[]> {
+  const historyFile = path.join(process.cwd(), '.content/history.ts');
+  if (!fs.existsSync(historyFile)) {
+    return [];
+  }
+  const history = await import(historyFile);
+  return history.default as string[];
+}
+
 async function main() {
   const contentDir = path.join(process.cwd(), '.content');
   if (!fs.existsSync(contentDir)) {
     fs.mkdirSync(contentDir, { recursive: true });
   }
-  const fileMetaList = await getFile();
+  const history = await getHistory();
+  const fileMetaList = await getFile({ history });
+  if (fileMetaList.length === 0) {
+    consola.success('no post updates');
+    return;
+  } else {
+    consola.info(`${fileMetaList.length} posts to be updated`);
+    console.log(
+      JSON.stringify(
+        fileMetaList.map((item) => item.frontMatter),
+        null,
+        2,
+      ),
+    );
+  }
+
+  const newHistory = fileMetaList.map((item) => item.md5);
+
+  const historyFile = path.join(process.cwd(), '.content/history.ts');
+  fs.writeFileSync(
+    historyFile,
+    `export default ${JSON.stringify(newHistory)}`,
+    { encoding: 'utf-8' },
+  );
+
   const indexFilePath = path.join(process.cwd(), '.content', 'index.ts');
   if (!fs.existsSync(indexFilePath)) {
     fs.writeFileSync(
@@ -84,8 +117,10 @@ async function main() {
 
   const postsPath = path.join(process.cwd(), '.content/posts');
 
-  fs.rmSync(postsPath, { recursive: true, force: true });
-  fs.mkdirSync(postsPath);
+  // fs.rmSync(postsPath, { recursive: true, force: true });
+  if (!fs.existsSync(postsPath)) {
+    fs.mkdirSync(postsPath);
+  }
 
   fileMetaList.forEach((file) => {
     const filePath = path.join(
@@ -100,41 +135,39 @@ async function main() {
     );
   });
 
-  const metaDir = path.dirname(metaFilePath);
-  if (!fs.existsSync(metaDir)) {
-    fs.mkdirSync(metaDir, { recursive: true });
+  if (!fs.existsSync(metaFilePath)) {
+    const metaContent = `
+  // @ts-nocheck
+  type FrontMatter = {
+    title: string;
+    description?: string;
+    cover?: string;
+  };
+  
+  export type PostType = {
+    id:string,
+    md5: string;
+    filePath: string;
+    content: string;
+    fileName: string;
+    subject: string[];
+    frontMatter: FrontMatter;
+    updateAt: number;
+  };
+  
+  function importAll(r: __WebpackModuleApi.RequireContext) {
+    return r
+      .keys()
+      .filter((key) => !key.includes('.content/posts')) // 过滤掉重复
+      .map((key) => r(key).default || r(key));
   }
-  const metaContent = `
-// @ts-nocheck
-type FrontMatter = {
-  title: string;
-  description?: string;
-  cover?: string;
-};
-
-export type PostType = {
-  filePath: string;
-  content: string;
-  fileName: string;
-  subject: string[];
-  md5: string;
-  frontMatter: FrontMatter;
-  updateAt: number;
-};
-
-function importAll(r: __WebpackModuleApi.RequireContext) {
-  return r
-    .keys()
-    .filter((key) => !key.includes('.content/posts')) // 过滤掉重复
-    .map((key) => r(key).default || r(key));
-}
-
-export const allPosts = importAll(
-  require.context('./posts/', false, /.ts$/),
-) as PostType[];
-\n`;
-  fs.writeFileSync(metaFilePath, metaContent, { encoding: 'utf-8' });
-  // console.log(fileMetaList);
+  
+  export const allPosts = importAll(
+    require.context('./posts/', false, /.ts$/),
+  ) as PostType[];
+  \n`;
+    fs.writeFileSync(metaFilePath, metaContent, { encoding: 'utf-8' });
+  }
 }
 
 main();

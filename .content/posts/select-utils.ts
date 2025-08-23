@@ -5,7 +5,8 @@ export default {
   "subject": [
     "snippets"
   ],
-  "md5": "aMLLdl",
+  "md5": "9d737764a8ed8236d62c7dd81a0bc697",
+  "id": "aMLLdl",
   "frontMatter": {
     "title": "Select 组件工具类",
     "description": "为 Select 组件添加复合数据枚举",

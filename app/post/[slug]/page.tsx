@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 export default function Post() {
   const { slug } = useParams();
-  const currentPost = allPosts.find((p) => p.md5 === slug);
+  const currentPost = allPosts.find((p) => p.id === slug);
   if (!currentPost) return null;
   return (
     <Center className='w-full'>

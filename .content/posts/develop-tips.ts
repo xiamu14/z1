@@ -3,7 +3,8 @@ export default {
   "content": "<h3>node-sass 安装问题</h3>\n<p>使用 yarn 安装时，使用 dart-sass 来替代 node-sass 就可以了\n<code>yarn add node-sass@yarn:dart-sass -D</code></p>",
   "fileName": "develop-tips",
   "subject": [],
-  "md5": "8fJ6bH",
+  "md5": "24e4c8defc4691427850b1664c6d21ea",
+  "id": "8fJ6bH",
   "frontMatter": {
     "title": "程序开发中的技巧",
     "description": "开发环境，代码编写中的各种技巧",
