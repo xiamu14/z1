@@ -3,12 +3,13 @@ import { VirtuosoMasonry } from '@virtuoso.dev/masonry';
 import { useMemo } from 'react';
 import { Box, HStack, VStack } from './ui/layouts';
 import { Divider } from './ui/divider';
-
 import Image from 'next/image';
 import { allPosts, PostType } from '@/.content';
-import MusicCard from './music-card';
 import Link from 'next/link';
 type CardType = PostType & { type?: 'music' | 'post' | 'video' };
+
+console.log('[allPosts]', allPosts.length);
+
 const ItemContent: React.FC<{ data: PostType; onClick?: () => void }> = ({
   data,
   onClick,
@@ -42,12 +43,10 @@ const ItemContent: React.FC<{ data: PostType; onClick?: () => void }> = ({
 
 export function Posts() {
   const allCards = useMemo(() => {
-    const postsWithMusic: CardType[] = [...allPosts].map((item: CardType) => {
-      item['type'] = 'post' as const;
-      return item as CardType;
-    });
-    // postsWithMusic.splice(2, 0, { type: 'music' } as CardType);
-    return postsWithMusic;
+    const posts: CardType[] = [...allPosts].sort(
+      (a, b) => b.updateAt - a.updateAt,
+    );
+    return posts;
   }, []);
 
   return (
@@ -68,12 +67,9 @@ export function Posts() {
           data: CardType;
           index: number;
         }) => {
-          if (card.type === 'music') {
-            return <MusicCard />;
-          }
           return (
             card && (
-              <Link href={`/post/${card.md5}`}>
+              <Link key={card.md5} href={`/post/${card.md5}`}>
                 <ItemContent data={card} />
               </Link>
             )

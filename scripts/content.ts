@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import { parseMarkdown } from './parseMarkdown';
 import yaml from 'js-yaml';
+import { md5Nanoid } from './utils';
 
 type FrontMatter = {
   title: string;
@@ -21,10 +22,12 @@ type FileMeta = {
 export async function getFile() {
   const files = await glob('posts/**/*.md');
   console.log('files', files);
-  const filesMeta = [];
+  const fileMetaList = [];
   for (const file of files) {
     const filePath = path.join(process.cwd(), file);
     const content = fs.readFileSync(filePath, { encoding: 'utf-8' });
+    const fileState = fs.statSync(filePath);
+    const updateAt = fileState.mtimeMs;
 
     const frontMeta = /---(.*?)---/gs.exec(content);
     let frontMatter: FrontMatter | undefined = undefined;
@@ -47,20 +50,17 @@ export async function getFile() {
       .slice(0, -1)
       .filter((item) => item !== 'posts');
 
-    // 计算文件的 md5
-    const crypto = await import('crypto');
-    const md5 = crypto.createHash('md5').update(content).digest('hex');
-
-    filesMeta.push({
+    fileMetaList.push({
       filePath,
       content: parsedContent,
       fileName,
       subject,
-      md5,
+      md5: md5Nanoid(frontMatter.title, 6),
       frontMatter,
+      updateAt,
     });
   }
-  return filesMeta;
+  return fileMetaList;
 }
 
 async function main() {
@@ -68,7 +68,7 @@ async function main() {
   if (!fs.existsSync(contentDir)) {
     fs.mkdirSync(contentDir, { recursive: true });
   }
-  const filesMeta = await getFile();
+  const fileMetaList = await getFile();
   const indexFilePath = path.join(process.cwd(), '.content', 'index.ts');
   if (!fs.existsSync(indexFilePath)) {
     fs.writeFileSync(
@@ -82,14 +82,34 @@ async function main() {
 
   const metaFilePath = path.join(process.cwd(), '.content', 'meta.ts');
 
+  const postsPath = path.join(process.cwd(), '.content/posts');
+
+  fs.rmSync(postsPath, { recursive: true, force: true });
+  fs.mkdirSync(postsPath);
+
+  fileMetaList.forEach((file) => {
+    const filePath = path.join(
+      process.cwd(),
+      '.content',
+      'posts',
+      `${file.fileName}.ts`,
+    );
+    fs.writeFileSync(
+      filePath,
+      `export default ${JSON.stringify(file, null, 2)}`,
+    );
+  });
+
   const metaDir = path.dirname(metaFilePath);
   if (!fs.existsSync(metaDir)) {
     fs.mkdirSync(metaDir, { recursive: true });
   }
-  const metaContent = `type FrontMatter = {
+  const metaContent = `
+// @ts-nocheck
+type FrontMatter = {
   title: string;
   description?: string;
-  cover?:string;
+  cover?: string;
 };
 
 export type PostType = {
@@ -99,11 +119,22 @@ export type PostType = {
   subject: string[];
   md5: string;
   frontMatter: FrontMatter;
+  updateAt: number;
 };
 
- export const allPosts : PostType[] = ${JSON.stringify(filesMeta, null, 2)};\n`;
+function importAll(r: __WebpackModuleApi.RequireContext) {
+  return r
+    .keys()
+    .filter((key) => !key.includes('.content/posts')) // 过滤掉重复
+    .map((key) => r(key).default || r(key));
+}
+
+export const allPosts = importAll(
+  require.context('./posts/', false, /.ts$/),
+) as PostType[];
+\n`;
   fs.writeFileSync(metaFilePath, metaContent, { encoding: 'utf-8' });
-  // console.log(filesMeta);
+  // console.log(fileMetaList);
 }
 
 main();

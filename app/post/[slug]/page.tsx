@@ -1,6 +1,6 @@
 'use client';
 import { useParams } from 'next/navigation';
-import { allPosts, PostType } from '@/.content';
+import { allPosts } from '@/.content';
 import { Box, Center, VStack } from '@/components/ui/layouts';
 import Image from 'next/image';
 

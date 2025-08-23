@@ -92,6 +92,22 @@ module.exports = {
 
 useUIState, useMount, useUnmount, useUpdate
 
+### 3. 自定义 useEffectReact
+
+```ts
+import { useCallback, useEffect, useRef } from 'react';
+
+export function useEffectEvent<T extends (...args: unknown[]) => unknown>(
+  fn: T,
+): T {
+  const ref = useRef(fn);
+  useEffect(() => {
+    ref.current = fn;
+  }, []);
+  return useCallback(((...args) => ref.current(...args)) as T, []);
+}
+```
+
 ### 结论
 
 这套架构的最大价值在于：把“容易出错的自由度”收紧为“可读、可控、可优化的约束”，让性能与可维护性更可预期；代价是与生态的摩擦、工具与适配的维护成本，以及对团队习惯的改造。若能按“分阶段推进 + 适配层 + 作用域 store + DevTools”四件套去落地，优势会逐步显现，而缺陷也能被控制在工程可接受范围内。

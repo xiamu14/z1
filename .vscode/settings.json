@@ -19,9 +19,20 @@
     "**/.svn": true,
     "**/.hg": true,
     "**/.DS_Store": true,
-    "**/Thumbs.db": true
+    "**/Thumbs.db": true,
+    "public": true,
+    ".vscode": true,
+    ".next": true,
+    "node_modules": true,
+    "next-env.d.ts": true
   },
-  "hide-files.files": [],
+  "hide-files.files": [
+    "public",
+    ".vscode",
+    ".next",
+    "node_modules",
+    "next-env.d.ts"
+  ],
   "cSpell.words": [
     "Contentlayer",
     "remixicon",
