@@ -90,7 +90,72 @@ module.exports = {
 
 ### 2. 定义语义化 Hooks
 
-useUIState, useMount, useUnmount, useUpdate
+`useUIState` - 仅更新 UI 的状态值，不包含任何副作用
+
+```ts
+export const useUIState = useState;
+```
+
+`useOnce` - 仅执行一次，无任何依赖
+
+```ts
+const useOnce = (effect: EffectCallback) => {
+  useEffect(effect, []);
+};
+```
+
+`useMount` - 加载时执行一次
+
+```ts
+export const useMount = useOnce;
+```
+
+`useUnmount` - 卸载时执行一次
+
+```ts
+export const useUnmount = (fn: () => void): void => {
+  const fnRef = useRef(fn);
+  // update the ref each render so if it change the newest callback will be invoked
+  fnRef.current = fn;
+
+  useOnce(() => () => fnRef.current());
+};
+```
+
+`useUpdateReason` - 导致组件 render 的状态更变
+
+```ts
+type Props = Record<string, unknown>;
+export function useUpdateReason(
+  componentName: string,
+  props: Props,
+  debug = true,
+) {
+  const prevProps = useRef<Props>({});
+
+  useEffect(() => {
+    if (prevProps.current && debug) {
+      const allKeys = Object.keys({ ...prevProps.current, ...props });
+      const changedProps: Props = {};
+
+      allKeys.forEach((key) => {
+        if (!Object.is(prevProps.current[key], props[key])) {
+          changedProps[key] = {
+            from: prevProps.current[key],
+            to: props[key],
+          };
+        }
+      });
+
+      if (Object.keys(changedProps).length) {
+        console.log('[component update reason]', componentName, changedProps);
+      }
+    }
+
+    prevProps.current = props;
+  });
+}
+```
 
 ### 3. 自定义 useEffectReact
 
