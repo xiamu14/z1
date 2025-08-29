@@ -40,7 +40,7 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn(inter.variable, geistMono.variable, 'antialiased')}
     >
-      <body className='bg-white p-[24px] sm:p-[12px]'>
+      <body className='bg-white p-[8px] sm:p-[6px]'>
         <ThemeProvider attribute='class'>
           <TooltipProvider>
             <div className='flex min-h-screen flex-col'>

@@ -16,6 +16,7 @@ async function getFile({ history }: { history: string[] }) {
   const files = await glob('posts/**/*.md');
   console.log('files', files);
   const fileMetaList = [];
+  const newHistory = [];
   for (const file of files) {
     const filePath = path.join(process.cwd(), file);
     const content = fs.readFileSync(filePath, { encoding: 'utf-8' });
@@ -38,6 +39,7 @@ async function getFile({ history }: { history: string[] }) {
 
     const shortMd5 = md5Nanoid(frontMatter.title, 6);
     const md5 = crypto.createHash('md5').update(content).digest('hex');
+    newHistory.push(md5);
     if (history.includes(md5)) {
       continue;
     }
@@ -60,7 +62,7 @@ async function getFile({ history }: { history: string[] }) {
       updateAt,
     });
   }
-  return fileMetaList;
+  return { fileMetaList, newHistory };
 }
 
 async function getHistory(): Promise<string[]> {
@@ -78,7 +80,7 @@ async function main() {
     fs.mkdirSync(contentDir, { recursive: true });
   }
   const history = await getHistory();
-  const fileMetaList = await getFile({ history });
+  const { fileMetaList, newHistory } = await getFile({ history });
   if (fileMetaList.length === 0) {
     consola.success('no post updates');
     return;
@@ -93,7 +95,11 @@ async function main() {
     );
   }
 
-  const newHistory = fileMetaList.map((item) => item.md5);
+  // const newHistory = fileMetaList.map((item) => item.md5);
+  consola.info(newHistory);
+
+  // dryRun
+  // if (!0) return;
 
   const historyFile = path.join(process.cwd(), '.content/history.ts');
   fs.writeFileSync(

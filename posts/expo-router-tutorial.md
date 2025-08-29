@@ -30,6 +30,10 @@ router.navigate, router.push, router.replace
 
 router.back, router.dismissTo
 
+### 特殊
+
+router.dismissAll (会触发一次 beforeRemove，但 stack 堆栈里的页面只是冻结，不会卸载)
+
 ### 退出拦截
 
 navigation.addEventListener('beforeRemove',()=>{})
@@ -50,7 +54,7 @@ const routeParams = useLocalParams<UserRouteParams>();
 
 ## 思考
 
-思考 路由跳转时传递上下文（Context）而不是 query/params，特别是 大对象、复杂状态甚至临时数据，既要避免 URL 参数污染，又要避免无限制使用全局状态。
+路由跳转时传递上下文（Context）而不是 query/params，特别是 大对象、复杂状态甚至临时数据，既要避免 URL 参数污染，又要避免无限制使用全局状态。
 
 ### 问题背景
 
@@ -59,8 +63,8 @@ const routeParams = useLocalParams<UserRouteParams>();
 - 但大 JSON / File 对象 / Skia snapshot 等数据没法直接塞到 URL。
 - 全局状态（Redux / Zustand / Valtio / Context）
 - 可以存数据，但问题是：
-- 数据和路由解耦，容易造成“僵尸状态”或内存泄露（页面关掉了，但数据还留着）。
-- 很多状态只是「跳转时的临时上下文」，没必要长期存在。
+  - 数据和路由解耦，容易造成“僵尸状态”或内存泄露（页面关掉了，但数据还留着）。
+  - 很多状态只是「跳转时的临时上下文」，没必要长期存在。
 
 所以需要一个 介于 params 和全局 store 之间的传递层。
 

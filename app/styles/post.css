@@ -1,31 +1,35 @@
 .post-content {
   display: flex;
   gap: 10px;
-  font-size: 18px;
+  font-size: 16px;
   flex-direction: column;
   color: #333;
   h2,
   h3,
   h4,
   h5 {
-    font-weight: bold;
+    font-weight: 600;
     color: #333;
   }
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     line-height: 2.5rem;
+    padding: 15px 0 5px;
   }
   h3 {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     line-height: 2.25rem;
+    padding: 15px 0 5px;
   }
   h4 {
     font-size: 1rem;
     line-height: 2rem;
+    padding: 10px 0 5px;
   }
   h5 {
     font-size: 1rem;
     line-height: 1.75rem;
+    padding: 10px 0 5px;
   }
   p {
     line-height: 1.6;

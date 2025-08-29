@@ -23,9 +23,9 @@ export default function Post() {
           )}
         </Box>
         <VStack className='mt-[10px] px-[12px] py-[20px]'>
-          <h3 className='text-[1.75rem] font-bold'>
+          <h1 className='text-[1.5rem] font-bold text-[#333]'>
             {currentPost?.frontMatter.title}
-          </h3>
+          </h1>
         </VStack>
         <div
           className='post-content w-full px-[10px] text-paragraph-sm text-text-sub-600'
