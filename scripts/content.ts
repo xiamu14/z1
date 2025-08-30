@@ -96,8 +96,7 @@ async function main() {
   }
 
   // const newHistory = fileMetaList.map((item) => item.md5);
-  consola.info(newHistory);
-
+  // consola.info(newHistory);
   // dryRun
   // if (!0) return;
 

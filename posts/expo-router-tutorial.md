@@ -38,6 +38,8 @@ router.dismissAll (会触发一次 beforeRemove，但 stack 堆栈里的页面�
 
 navigation.addEventListener('beforeRemove',()=>{})
 
+只有页面卸载时触发, 页面 inactive （router.push）时不触发
+
 ## 路由参数
 
 ### 上下文
@@ -60,7 +62,7 @@ const routeParams = useLocalParams<UserRouteParams>();
 
 - 传统路由参数
 - 通常是字符串、数字、ID，适合小数据。
-- 但大 JSON / File 对象 / Skia snapshot 等数据没法直接塞到 URL。
+- 但大 JSON / File 对象 等数据没法直接塞到 URL。
 - 全局状态（Redux / Zustand / Valtio / Context）
 - 可以存数据，但问题是：
   - 数据和路由解耦，容易造成“僵尸状态”或内存泄露（页面关掉了，但数据还留着）。
