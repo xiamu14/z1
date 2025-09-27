@@ -1,6 +1,6 @@
 ---
 title: Deferred：手动控制 Promise 的解决与拒绝
-description: Deferred 函数让开发者可以灵活地在合适的时机手动触发 Promise 的 resolve 或 reject。它常用于测试场景，或在异步操作无法直接返回 Promise 的情况下，提供更强的控制能力。
+description: Deferred 函数让开发者可以灵活地在合适的时机手动触发 Promise 的 resolve 或 reject。
 cover: https://images.unsplash.com/photo-1595716887117-fd1add22a29b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
 ---
 

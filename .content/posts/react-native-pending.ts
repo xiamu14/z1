@@ -1,0 +1,14 @@
+export default {
+  "filePath": "/Users/ben/Documents/workspace/project/z1/posts/react-native-pending.md",
+  "content": "<h3>keyboard and scrollView</h3>\n<p>在布局中有 textarea，且需要 scroll 时，使用 react-native-keyboard-controller 里的 KeyboardScrollView 组件嵌套 ScrollView 才能有键盘弹出后，页面整体可 scroll 的效果。</p>\n<pre class=\"shiki shiki-themes min-light min-dark\" style=\"background-color:#ffffff;--shiki-dark-bg:#1f1f1f;color:#24292eff;--shiki-dark:#b392f0\" tabindex=\"0\"><code><span class=\"line\"></span></code></pre>\n<h3>textarea 问题</h3>\n<p>使用非受控组件模式，textarea 更稳定，快速删除不闪屏。</p>\n<h4>待处理</h4>\n<ul>\n<li>\n<p>受控组件模式下，如何保持稳定？</p>\n</li>\n<li>\n<p>高度随内容自适应逻辑，Android 上使用 onContentLayout 同步。iOS 暂无有效实现。</p>\n</li>\n</ul>\n<h3>react-native-navigation</h3>\n<ol>\n<li>\n<p>header 问题，headerRight 里的组件有点击事件时，在部分手机必须使用 Pressable 组件的 onPressIn 事件，才能准确触发。</p>\n</li>\n<li>\n<p>Screen 组件卸载问题，只有当 Screen 内调用 router.replace 时，Screen 才从内存里完全卸载释放。其余的无论时前进还是后退，Screen 都无法完全卸载，所有里面的 addEventListener 等订阅消息和事件必须要妥善的取消，否则增加内存消耗和导致逻辑错误。</p>\n</li>\n</ol>\n<h3>SafeAreaView</h3>\n<p>在使用 SafeAreaView 时，不要再直接嵌套 View.flex-1，否则会导致页面 flex-1 高度计算偶尔错误。错误示例：</p>\n<pre class=\"shiki shiki-themes min-light min-dark\" style=\"background-color:#ffffff;--shiki-dark-bg:#1f1f1f;color:#24292eff;--shiki-dark:#b392f0\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#24292EFF;--shiki-dark:#B392F0\">&#x3C;</span><span style=\"color:#1976D2;--shiki-dark:#79B8FF\">SafeAreaView</span><span style=\"color:#6F42C1;--shiki-dark:#B392F0\"> className</span><span style=\"color:#D32F2F;--shiki-dark:#F97583\">=</span><span style=\"color:#22863A;--shiki-dark:#FFAB70\">'flex-1'</span><span style=\"color:#24292EFF;--shiki-dark:#B392F0\">></span></span>\n<span class=\"line\"><span style=\"color:#24292EFF;--shiki-dark:#B392F0\">  &#x3C;</span><span style=\"color:#1976D2;--shiki-dark:#79B8FF\">View</span><span style=\"color:#6F42C1;--shiki-dark:#B392F0\"> className</span><span style=\"color:#D32F2F;--shiki-dark:#F97583\">=</span><span style=\"color:#22863A;--shiki-dark:#FFAB70\">'flex-1'</span><span style=\"color:#24292EFF;--shiki-dark:#B392F0\">> &#x3C;/</span><span style=\"color:#1976D2;--shiki-dark:#79B8FF\">View</span><span style=\"color:#24292EFF;--shiki-dark:#B392F0\">> // 不需要</span></span>\n<span class=\"line\"><span style=\"color:#24292EFF;--shiki-dark:#B392F0\">&#x3C;/</span><span style=\"color:#1976D2;--shiki-dark:#79B8FF\">SafeAreaView</span><span style=\"color:#24292EFF;--shiki-dark:#B392F0\">></span></span></code></pre>",
+  "fileName": "react-native-pending",
+  "subject": [],
+  "md5": "e6575197d340042089f9b70b791828f4",
+  "id": "LRjblL",
+  "frontMatter": {
+    "title": "react-native 待整理问题",
+    "description": "日常开发中遇到的未完全解决的问题",
+    "cover": "https://images.unsplash.com/photo-1620133026537-882224c4aeb0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  "updateAt": 1758935958641
+}
