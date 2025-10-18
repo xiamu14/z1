@@ -157,7 +157,7 @@ export function useUpdateReason(
 }
 ```
 
-### 3. 自定义 useEffectReact
+### 3. 自定义 useEffectEvent
 
 ```ts
 import { useCallback, useEffect, useRef } from 'react';
