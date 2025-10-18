@@ -52,7 +52,7 @@ ref 是 react 的保留字，所以通过 props 传递 ref 时，需要重新命
 
 function Text({textRef:Ref<object>}) {
 
-  useImxxx(textRef, ()=>{
+  useImpHandler(textRef, ()=>{
     return {}
   })
 }
