@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "content": "bun run scripts/content.ts",
+    "create": "bun run scripts/create.ts",
     "format": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache"
   },
   "dependencies": {

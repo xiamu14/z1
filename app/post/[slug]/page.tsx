@@ -10,25 +10,25 @@ export default function Post() {
   if (!currentPost) return null;
   return (
     <Center className='w-full'>
-      <VStack className='relative top-[-140px] w-[680px] items-center'>
-        <Box className='overflow-hidden rounded-[15px]'>
+      <VStack className='top-[-140px] relative items-center w-[680px]'>
+        <Box className='rounded-[15px] overflow-hidden'>
           {currentPost?.frontMatter.cover && (
             <Image
               src={currentPost.frontMatter.cover}
               width={660}
               height={280}
               alt='post cover'
-              className='h-[320px] w-[680px] object-cover'
+              className='w-[680px] h-[320px] object-cover'
             />
           )}
         </Box>
         <VStack className='mt-[10px] px-[12px] py-[20px]'>
-          <h1 className='text-[1.5rem] font-bold text-[#333]'>
+          <h1 className='font-bold text-[#333] text-[1.5rem]'>
             {currentPost?.frontMatter.title}
           </h1>
         </VStack>
         <div
-          className='post-content w-full px-[10px] text-paragraph-sm text-text-sub-600'
+          className='px-[10px] w-full text-paragraph-sm text-text-sub-600 post-content'
           dangerouslySetInnerHTML={{
             __html: currentPost?.content ?? '',
           }}
@@ -44,8 +44,8 @@ export default function Post() {
                 if (text) {
                   navigator.clipboard.writeText(text);
                 }
-                // 这里处理 code 标签被点击的逻辑
-                console.log('code 标签被点击');
+                // TODO: toast 提示
+                console.log('已复制');
                 break;
               }
               node = node.parentElement;

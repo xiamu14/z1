@@ -8,11 +8,10 @@ import { cn } from '@/utils/cn';
 export default function Header() {
   const pathname = usePathname();
   const isShowSlogan = !pathname.includes('/post/');
-  console.log('isShowSlogan', isShowSlogan, pathname);
   return (
-    <VStack className='h-[360px] w-full justify-center gap-[20px] rounded-[6px] bg-[#fafafa] sm:h-[300px]'>
+    <VStack className='justify-center gap-[20px] bg-[#fafafa] rounded-[6px] w-full h-[360px] sm:h-[300px]'>
       <Center>
-        <header className='flex h-[58px] w-[60%] min-w-[600px] max-w-[820px] items-center justify-between rounded-[12px] bg-white p-[20px] shadow-regular-sm'>
+        <header className='flex justify-between items-center bg-white shadow-regular-sm p-[20px] rounded-[12px] w-[60%] min-w-[600px] max-w-[820px] h-[58px]'>
           <Link
             href='/'
             className='flex items-center gap-2 text-label-md text-text-strong-950'
@@ -22,9 +21,9 @@ export default function Header() {
               <img
                 src='/images/logo.svg'
                 alt=''
-                className='size-9 h-[30px] w-[30px] object-contain'
+                className='w-[30px] h-[30px] size-9 object-contain'
               />
-              <h2 className='text-[20px] font-bold sm:text-[18px]'>Zen1</h2>
+              <h2 className='font-bold text-[20px] sm:text-[18px]'>Zen1</h2>
             </HStack>
           </Link>
           <Center className='gap-[30px]'>
@@ -41,7 +40,7 @@ export default function Header() {
           <Button.Root
             mode='lighter'
             variant='primary'
-            className='h-[30px] rounded-[4px]'
+            className='rounded-[4px] h-[30px]'
           >
             NewsLetter
           </Button.Root>

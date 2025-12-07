@@ -6,7 +6,7 @@ import {
   Virtualizer,
   WaterfallLayout,
 } from 'react-aria-components';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Box, HStack, VStack } from './ui/layouts';
 import { Divider } from './ui/divider';
 import Image from 'next/image';
@@ -22,18 +22,18 @@ const ItemContent: React.FC<{ data: PostType; onClick?: () => void }> = ({
 }) => {
   return (
     <div className='p-[6px]'>
-      <VStack className='cursor-pointer rounded-[10px] border bg-white p-[16px] hover:shadow-[rgba(149,157,165,0.2)_0px_8px_24px]'>
-        <HStack className='h-[18px] items-center gap-[10px]'>
-          <div className='h-full w-[4px] rounded-xl bg-primary-base'></div>
-          <h3 className='truncate font-bold text-static-black'>
+      <VStack className='bg-white hover:shadow-[rgba(149,157,165,0.2)_0px_8px_24px] p-[16px] border rounded-[10px] cursor-pointer'>
+        <HStack className='items-center gap-[10px] h-[18px]'>
+          <div className='bg-primary-base rounded-xl w-[4px] h-full'></div>
+          <h3 className='text-static-black font-bold truncate'>
             {data.frontMatter.title}
           </h3>
         </HStack>
-        <Divider className='mb-[10px] mt-[12px]' />
+        <Divider className='mt-[12px] mb-[10px]' />
         <Box>{data.frontMatter.description ?? ''}</Box>
 
         {data.frontMatter.cover && (
-          <Box className='mt-[10px] overflow-hidden rounded-[4px]'>
+          <Box className='mt-[10px] rounded-[4px] overflow-hidden'>
             <Image
               src={data.frontMatter.cover}
               width={500}
@@ -54,12 +54,20 @@ export default function PostGallery() {
     );
     return posts;
   }, []);
+  const [size, setSize] = useState<Size | undefined>(undefined);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setSize(new Size(220, 300));
+    }, 100);
+  }, []);
+
   return (
     <div className='scroll-smooth'>
       <Virtualizer
         layout={WaterfallLayout}
         layoutOptions={{
-          minItemSize: new Size(150, 500),
+          minItemSize: size,
           minSpace: new Size(8, 8),
           maxColumns: 4,
         }}
