@@ -12,6 +12,7 @@ const nextConfig = {
       { hostname: 'images.pexels.com' },
       { hostname: 'pub-f588820721c2423d8874ab668e6f5a74.r2.dev' },
       { hostname: 'liblibai-online.liblib.cloud' },
+      { hostname: 's2.eslite.com' },
     ],
     disableStaticImages: false,
   },
