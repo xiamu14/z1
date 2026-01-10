@@ -26,3 +26,18 @@ cover: https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2664&
 
 - 支持 ArkType , zod 等 validation
 - 将数据类型完善
+
+#### State Machine Animation Manager
+基于状态机的动画控制器
+
+#### expo-cache
+
+使用接口模式实现多种资源文件的三级缓存
+
+#### Task-Manager-Model
+
+任务控制器模型
+- 串行异步任务 pipeline
+- 随时中断缓存、续做、重启
+- 进度控制显示
+- 灵活任务定义调度
