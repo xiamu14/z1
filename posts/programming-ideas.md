@@ -34,6 +34,10 @@ cover: https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2664&
 
 使用接口模式实现多种资源文件的三级缓存
 
+- 三级缓存 ：本地-内存-网络
+- 接口模式对接不同资源的加载，校验
+- 使用多层级控制来分组按需清理（global ， [project]/audio/这样）
+
 #### Task-Manager-Model
 
 任务控制器模型
