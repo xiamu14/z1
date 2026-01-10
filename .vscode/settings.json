@@ -25,5 +25,11 @@
     "next-env.d.ts": true
   },
   "hide-files.files": [".vscode", ".next", "node_modules", "next-env.d.ts"],
-  "cSpell.words": ["Contentlayer", "Pressable", "remixicon", "shikijs"]
+  "cSpell.words": [
+    "Contentlayer",
+    "formkit",
+    "Pressable",
+    "remixicon",
+    "shikijs"
+  ]
 }

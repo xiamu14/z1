@@ -21,3 +21,8 @@ cover: https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2664&
   - 支持 msw.js
 
 - Hooks 灵活配置，支持路由 Pattern 来控制路由是否经过这些 hook（Less Code）
+
+#### react-formkit(原 react-nice-form)
+
+- 支持 ArkType , zod 等 validation
+- 将数据类型完善
