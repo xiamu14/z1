@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/apps/*/node_modules
 /.pnp
 .pnp.*
 .yarn/*
@@ -23,6 +24,7 @@ apps/*/out/
 /build
 .open-next/
 .wrangler/
+/apps/cms/.data/
 
 # misc
 .DS_Store
