@@ -1,0 +1,26 @@
+{
+  "name": "z1-cms",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-04-19",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "D1",
+      "database_name": "z1-cms",
+      "database_id": "replace-with-your-d1-database-id"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "R2",
+      "bucket_name": "z1-media"
+    }
+  ],
+  "vars": {
+    "NEXT_PUBLIC_SERVER_URL": "http://localhost:3000"
+  }
+}

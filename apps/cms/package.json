@@ -1,0 +1,44 @@
+{
+  "name": "z1-cms",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node ./node_modules/next/dist/bin/next dev -p 3102",
+    "build": "node ./node_modules/next/dist/bin/next build",
+    "start": "node ./node_modules/next/dist/bin/next start -p 3102",
+    "lint": "node ./node_modules/next/dist/bin/next lint",
+    "payload": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload",
+    "import:posts": "bun run scripts/import-posts.ts",
+    "generate:importmap": "payload generate:importmap",
+    "generate:types": "payload generate:types",
+    "cf:dev": "opennextjs-cloudflare build && wrangler dev",
+    "cf:deploy": "opennextjs-cloudflare build && wrangler deploy"
+  },
+  "dependencies": {
+    "@payloadcms/db-sqlite": "3.65.0",
+    "@payloadcms/db-d1-sqlite": "3.65.0",
+    "@payloadcms/next": "3.65.0",
+    "@payloadcms/richtext-lexical": "3.65.0",
+    "@payloadcms/storage-r2": "3.65.0",
+    "glob": "^11.0.3",
+    "js-yaml": "^4.1.0",
+    "libsql": "^0.5.22",
+    "next": "15.4.11",
+    "payload": "3.65.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "sharp": "^0.34.2"
+  },
+  "devDependencies": {
+    "@opennextjs/cloudflare": "^1.8.2",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "15.4.11",
+    "typescript": "^5.8.0",
+    "wrangler": "^4.37.0"
+  }
+}
