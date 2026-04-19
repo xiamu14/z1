@@ -1,4 +1,6 @@
+import { lexicalHTMLField } from '@payloadcms/richtext-lexical';
 import type { CollectionConfig } from 'payload';
+import { postContentEditor } from '../fields/post-content-editor';
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -99,11 +101,16 @@ export const Posts: CollectionConfig = {
     },
     {
       name: 'content',
-      type: 'textarea',
+      type: 'richText',
+      editor: postContentEditor,
       required: true,
       admin: {
-        description: '正文使用 Markdown 存储，前端按 Markdown 渲染。',
+        description: '正文使用 Lexical 编辑，支持直接插入 media 图片。',
       },
     },
+    lexicalHTMLField({
+      lexicalFieldName: 'content',
+      htmlFieldName: 'contentHTML',
+    }),
   ],
 };

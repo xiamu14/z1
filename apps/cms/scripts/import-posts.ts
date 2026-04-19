@@ -1,8 +1,14 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { Database } from 'bun:sqlite';
 import { glob } from 'glob';
 import yaml from 'js-yaml';
+import {
+  convertMarkdownToLexical,
+  editorConfigFactory,
+} from '@payloadcms/richtext-lexical';
 import config from '../src/payload.config';
+import { postContentEditor } from '../src/fields/post-content-editor';
 import { getPayload } from 'payload';
 
 type FrontMatter = {
@@ -20,6 +26,10 @@ type ImportStats = {
   created: number;
   failed: number;
   updated: number;
+};
+
+type ExistingPost = {
+  id: number;
 };
 
 function extractFrontMatter(content: string): {
@@ -69,8 +79,24 @@ function createSlug(file: string, title: string): string {
   return stableFileSlug || titleSlug;
 }
 
+function resolveLocalDatabasePath(): string {
+  const databaseURL =
+    process.env.DATABASE_URL || `file:${path.resolve(process.cwd(), '.data/payload.db')}`;
+
+  return databaseURL.startsWith('file:')
+    ? databaseURL.slice('file:'.length)
+    : databaseURL;
+}
+
 async function main() {
   const payload = await getPayload({ config });
+  const sqlite = new Database(resolveLocalDatabasePath(), {
+    readonly: true,
+  });
+  const editorConfig = await editorConfigFactory.fromEditor({
+    config: payload.config,
+    editor: postContentEditor,
+  });
   const files = (await glob('**/*.md', {
     cwd: postsRoot,
     nodir: true,
@@ -99,39 +125,28 @@ async function main() {
         .filter(Boolean)
         .map((value) => ({ value }));
 
-      const existing = await payload.find({
-        collection: 'posts',
-        depth: 0,
-        limit: 1,
-        pagination: false,
-        where: {
-          slug: {
-            equals: slug,
-          },
-        },
-      });
+      const existingBySlug = sqlite
+        .query<ExistingPost, [string]>(
+          'select id from posts where slug = ? limit 1',
+        )
+        .get(slug);
       const existingByTitle =
-        existing.docs?.[0] ||
-        (
-          await payload.find({
-            collection: 'posts',
-            depth: 0,
-            limit: 1,
-            pagination: false,
-            where: {
-              title: {
-                equals: frontMatter.title.trim(),
-              },
-            },
-          })
-        ).docs?.[0];
+        existingBySlug ||
+        sqlite
+          .query<ExistingPost, [string]>(
+            'select id from posts where title = ? limit 1',
+          )
+          .get(frontMatter.title.trim());
 
       const data = {
         title: frontMatter.title.trim(),
         slug,
         excerpt: frontMatter.description?.trim() ?? '',
         coverUrl: frontMatter.cover?.trim() || null,
-        content: body,
+        content: convertMarkdownToLexical({
+          editorConfig,
+          markdown: body,
+        }),
         status: 'published' as const,
         publishedAt: new Date(stat.mtimeMs).toISOString(),
         tags,
@@ -160,6 +175,8 @@ async function main() {
       console.error(`Failed to import ${file}:`, error);
     }
   }
+
+  sqlite.close();
 
   console.log(
     `Import finished. created=${stats.created} updated=${stats.updated} failed=${stats.failed}`,

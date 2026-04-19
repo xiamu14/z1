@@ -4,7 +4,11 @@ import type { ContentPost, RemotePost } from './types';
 const cmsBaseURL = process.env.CMS_URL?.replace(/\/$/, '');
 
 async function normalizeRemotePost(post: RemotePost): Promise<ContentPost> {
-  const renderedContent = await parseMarkdown(post.content ?? '');
+  const renderedContent =
+    post.contentHTML ??
+    (typeof post.content === 'string'
+      ? await parseMarkdown(post.content)
+      : '');
 
   return {
     id: String(post.id),
