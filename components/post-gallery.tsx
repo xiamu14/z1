@@ -22,18 +22,18 @@ const ItemContent: React.FC<{ data: PostType; onClick?: () => void }> = ({
 }) => {
   return (
     <div className='p-[6px]'>
-      <VStack className='bg-white hover:shadow-[rgba(149,157,165,0.2)_0px_8px_24px] p-[16px] border rounded-[10px] cursor-pointer'>
-        <HStack className='items-center gap-[10px] h-[18px]'>
-          <div className='bg-primary-base rounded-xl w-[4px] h-full'></div>
-          <h3 className='text-static-black font-bold truncate'>
+      <VStack className='cursor-pointer rounded-[10px] border bg-white p-[16px] hover:shadow-[rgba(149,157,165,0.2)_0px_8px_24px]'>
+        <HStack className='h-[18px] items-center gap-[10px]'>
+          <div className='h-full w-[4px] shrink-0 rounded-xl bg-primary-base'></div>
+          <h3 className='truncate font-bold text-static-black'>
             {data.frontMatter.title}
           </h3>
         </HStack>
-        <Divider className='mt-[12px] mb-[10px]' />
+        <Divider className='mb-[10px] mt-[12px]' />
         <Box>{data.frontMatter.description ?? ''}</Box>
 
         {data.frontMatter.cover && (
-          <Box className='mt-[10px] rounded-[4px] overflow-hidden'>
+          <Box className='mt-[10px] overflow-hidden rounded-[4px]'>
             <Image
               src={data.frontMatter.cover}
               width={500}
