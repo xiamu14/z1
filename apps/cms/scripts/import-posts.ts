@@ -1,14 +1,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { Database } from 'bun:sqlite';
+import { execFileSync } from 'node:child_process';
+import { BlockNoteEditor } from '@blocknote/core';
 import { glob } from 'glob';
 import yaml from 'js-yaml';
-import {
-  convertMarkdownToLexical,
-  editorConfigFactory,
-} from '@payloadcms/richtext-lexical';
+import { JSDOM } from 'jsdom';
 import config from '../src/payload.config';
-import { postContentEditor } from '../src/fields/post-content-editor';
 import { getPayload } from 'payload';
 
 type FrontMatter = {
@@ -31,6 +28,23 @@ type ImportStats = {
 type ExistingPost = {
   id: number;
 };
+
+function setupDOM() {
+  const { window } = new JSDOM('<!doctype html><html><body></body></html>');
+
+  globalThis.window = window as unknown as typeof globalThis.window;
+  globalThis.document = window.document;
+  globalThis.DOMParser = window.DOMParser;
+  globalThis.HTMLElement = window.HTMLElement;
+  globalThis.HTMLDivElement = window.HTMLDivElement;
+  globalThis.HTMLSpanElement = window.HTMLSpanElement;
+  globalThis.Node = window.Node;
+
+  Object.defineProperty(globalThis, 'navigator', {
+    configurable: true,
+    value: window.navigator,
+  });
+}
 
 function extractFrontMatter(content: string): {
   frontMatter: FrontMatter;
@@ -88,15 +102,32 @@ function resolveLocalDatabasePath(): string {
     : databaseURL;
 }
 
+function findExistingPost(
+  databasePath: string,
+  column: 'slug' | 'title',
+  value: string,
+): ExistingPost | null {
+  const escapedValue = value.replace(/'/g, "''");
+  const sql = `select id from posts where ${column} = '${escapedValue}' limit 1;`;
+  const output = execFileSync('sqlite3', [databasePath, sql], {
+    encoding: 'utf-8',
+  }).trim();
+
+  if (!output) {
+    return null;
+  }
+
+  return {
+    id: Number(output),
+  };
+}
+
 async function main() {
+  setupDOM();
+
   const payload = await getPayload({ config });
-  const sqlite = new Database(resolveLocalDatabasePath(), {
-    readonly: true,
-  });
-  const editorConfig = await editorConfigFactory.fromEditor({
-    config: payload.config,
-    editor: postContentEditor,
-  });
+  const databasePath = resolveLocalDatabasePath();
+  const editor = BlockNoteEditor.create();
   const files = (await glob('**/*.md', {
     cwd: postsRoot,
     nodir: true,
@@ -125,28 +156,17 @@ async function main() {
         .filter(Boolean)
         .map((value) => ({ value }));
 
-      const existingBySlug = sqlite
-        .query<ExistingPost, [string]>(
-          'select id from posts where slug = ? limit 1',
-        )
-        .get(slug);
+      const existingBySlug = findExistingPost(databasePath, 'slug', slug);
       const existingByTitle =
         existingBySlug ||
-        sqlite
-          .query<ExistingPost, [string]>(
-            'select id from posts where title = ? limit 1',
-          )
-          .get(frontMatter.title.trim());
+        findExistingPost(databasePath, 'title', frontMatter.title.trim());
 
       const data = {
         title: frontMatter.title.trim(),
         slug,
         excerpt: frontMatter.description?.trim() ?? '',
         coverUrl: frontMatter.cover?.trim() || null,
-        content: convertMarkdownToLexical({
-          editorConfig,
-          markdown: body,
-        }),
+        content: await editor.tryParseMarkdownToBlocks(body),
         status: 'published' as const,
         publishedAt: new Date(stat.mtimeMs).toISOString(),
         tags,
@@ -175,8 +195,6 @@ async function main() {
       console.error(`Failed to import ${file}:`, error);
     }
   }
-
-  sqlite.close();
 
   console.log(
     `Import finished. created=${stats.created} updated=${stats.updated} failed=${stats.failed}`,

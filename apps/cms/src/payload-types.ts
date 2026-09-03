@@ -208,24 +208,17 @@ export interface Post {
   status?: ('draft' | 'published') | null;
   publishedAt?: string | null;
   /**
-   * 正文使用 Lexical 编辑，支持直接插入 media 图片。
+   * 正文使用 BlockNote 编辑，数据存为 JSON blocks。
    */
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
+  content:
+    | {
         [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  contentHTML?: string | null;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -476,7 +469,6 @@ export interface PostsSelect<T extends boolean = true> {
   status?: T;
   publishedAt?: T;
   content?: T;
-  contentHTML?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

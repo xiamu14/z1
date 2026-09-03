@@ -16,13 +16,18 @@
     "cf:deploy": "opennextjs-cloudflare build && wrangler deploy"
   },
   "dependencies": {
-    "@payloadcms/db-sqlite": "3.65.0",
+    "@blocknote/core": "^0.48.1",
+    "@blocknote/mantine": "^0.48.1",
+    "@blocknote/react": "^0.48.1",
     "@payloadcms/db-d1-sqlite": "3.65.0",
+    "@payloadcms/db-sqlite": "3.65.0",
     "@payloadcms/next": "3.65.0",
     "@payloadcms/richtext-lexical": "3.65.0",
     "@payloadcms/storage-r2": "3.65.0",
+    "@payloadcms/ui": "3.65.0",
     "glob": "^11.0.3",
     "js-yaml": "^4.1.0",
+    "jsdom": "^29.0.2",
     "libsql": "^0.5.22",
     "next": "15.4.11",
     "payload": "3.65.0",
@@ -33,6 +38,7 @@
   "devDependencies": {
     "@opennextjs/cloudflare": "^1.8.2",
     "@types/js-yaml": "^4.0.9",
+    "@types/jsdom": "^28.0.1",
     "@types/node": "^24.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

@@ -1,6 +1,4 @@
-import { lexicalHTMLField } from '@payloadcms/richtext-lexical';
 import type { CollectionConfig } from 'payload';
-import { postContentEditor } from '../fields/post-content-editor';
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -101,16 +99,14 @@ export const Posts: CollectionConfig = {
     },
     {
       name: 'content',
-      type: 'richText',
-      editor: postContentEditor,
+      type: 'json',
       required: true,
       admin: {
-        description: '正文使用 Lexical 编辑，支持直接插入 media 图片。',
+        components: {
+          afterInput: ['./admin/components/blocknote-field#BlockNoteField'],
+        },
+        description: '正文使用 BlockNote 编辑，数据存为 JSON blocks。',
       },
     },
-    lexicalHTMLField({
-      lexicalFieldName: 'content',
-      htmlFieldName: 'contentHTML',
-    }),
   ],
 };

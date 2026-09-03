@@ -20,8 +20,7 @@ export type RemotePost = {
   title: string;
   slug: string;
   excerpt?: string | null;
-  content?: unknown;
-  contentHTML?: string | null;
+  content?: unknown[] | null;
   coverUrl?: string | null;
   publishedAt?: string | null;
   updatedAt?: string | null;

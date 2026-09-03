@@ -1,14 +1,10 @@
-import { parseMarkdown } from './parse-markdown';
+import { renderBlockNote } from './render-blocknote';
 import type { ContentPost, RemotePost } from './types';
 
 const cmsBaseURL = process.env.CMS_URL?.replace(/\/$/, '');
 
 async function normalizeRemotePost(post: RemotePost): Promise<ContentPost> {
-  const renderedContent =
-    post.contentHTML ??
-    (typeof post.content === 'string'
-      ? await parseMarkdown(post.content)
-      : '');
+  const renderedContent = await renderBlockNote(post.content);
 
   return {
     id: String(post.id),

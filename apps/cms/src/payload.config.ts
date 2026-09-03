@@ -3,7 +3,6 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { sqliteD1Adapter } from '@payloadcms/db-d1-sqlite';
 import { sqliteAdapter } from '@payloadcms/db-sqlite';
-import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { r2Storage } from '@payloadcms/storage-r2';
 import { buildConfig } from 'payload';
 import sharp from 'sharp';
@@ -83,7 +82,6 @@ export default buildConfig({
     'http://localhost:3100',
     'http://127.0.0.1:3100',
   ],
-  editor: lexicalEditor(),
   routes: {
     admin: '/admin',
     api: '/api',
